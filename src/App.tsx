@@ -1,0 +1,45 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import TrafficControlService from './services/TrafficControlService';
+
+function App() {
+  let trafficControlService = new TrafficControlService();
+  const [northSouthLightStatus, setNorthSouthLightStatus] = useState("Yellow");
+  const [eastWestLightStatus, setEastWestLightStatus] = useState("Green");
+
+  useEffect(() => {
+    setInterval(update, 5000);
+  }, []);
+
+  function update() {
+    trafficControlService.updateLights();
+    setNorthSouthLightStatus(trafficControlService.getNorthSouthLightStatus());
+    setEastWestLightStatus(trafficControlService.getEastWestLightStatus());
+  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <table className="Intersection-table">
+          <tr>
+            <td>NW</td>
+            <td className={northSouthLightStatus}>N</td>
+            <td>NE</td>
+          </tr>
+          <tr>
+            <td className={eastWestLightStatus}>W</td>
+            <td></td>
+            <td className={eastWestLightStatus}>E</td>
+          </tr>
+          <tr>
+            <td>SW</td>
+            <td className={northSouthLightStatus}>S</td>
+            <td>SE</td>
+          </tr>
+        </table>
+      </header>
+    </div>
+  );
+}
+
+export default App;
