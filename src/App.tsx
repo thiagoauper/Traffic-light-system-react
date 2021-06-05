@@ -4,8 +4,8 @@ import TrafficControlService from './services/TrafficControlService';
 
 function App() {
   let trafficControlService = new TrafficControlService();
-  const [northSouthLightStatus, setNorthSouthLightStatus] = useState("Yellow");
-  const [eastWestLightStatus, setEastWestLightStatus] = useState("Green");
+  const [northSouthLightStatus, setNorthSouthLightStatus] = useState(trafficControlService.getNorthSouthLightStatus());
+  const [eastWestLightStatus, setEastWestLightStatus] = useState(trafficControlService.getEastWestLightStatus());
 
   useEffect(() => {
     setInterval(update, 5000);
