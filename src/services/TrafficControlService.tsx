@@ -49,8 +49,8 @@ export default class TrafficControlService {
 
     getLightsInterval() : number {
         return this.getIsPeakHour()
-            ? 5000
-            : 2000;
+            ? 10000
+            : 5000;
     }
 
     setIsPeakHour(isPeakHour: boolean) {
