@@ -10,7 +10,6 @@ function App() {
   const [isPeakHour, setIsPeakHour] = React.useState(trafficControlService.getIsPeakHour());
 
   const mySubscriber = (msg: string, data: any) => {
-
     switch (msg) {
         case 'UPDATE_NorthSouthLights':
           setNorthSouthLightStatus(data);
@@ -21,28 +20,19 @@ function App() {
         default:
             break;
     }
-};
-
+  };
 
   useEffect(() => {
     const lightsInterval = trafficControlService.getLightsInterval();
     console.log(lightsInterval);
 
     const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
-
-    // trafficControlService.updateLights();
     
     PubSub.subscribe('UPDATE_NorthSouthLights', mySubscriber);
     PubSub.subscribe('UPDATE_EastWestLights', mySubscriber);
     
     return () => clearInterval(interval);
   }, [isPeakHour]);
-
-  // function update() {
-  //   trafficControlService.updateLights();
-  //   setNorthSouthLightStatus(trafficControlService.getNorthSouthLightStatus());
-  //   setEastWestLightStatus(trafficControlService.getEastWestLightStatus());
-  // }
 
   function togglePeakHour() {
     setIsPeakHour(!isPeakHour);
@@ -73,7 +63,6 @@ function App() {
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
         </div>
-        <button onClick={() => trafficControlService.updateLights()}>Change Status!</button>
       </header>
     </div>
   );

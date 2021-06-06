@@ -18,7 +18,6 @@ export default class TrafficControlService {
         }
         
         //had to do this trick because JSON.parse(...) does not accept string | null as parameter
-        // intersection = window.sessionStorage.getItem("Intersection") ?? intersection;
         return JSON.parse(window.sessionStorage.getItem("Intersection") ?? intersection);
     }
 
@@ -27,8 +26,6 @@ export default class TrafficControlService {
     }
 
     updateLights() {
-        // debugger;
-
         let intersection = this.getIntersection();
 
         console.log("updateLights!");
@@ -59,9 +56,6 @@ export default class TrafficControlService {
         }
             
         this.setIntersection(intersection);
-
-        // PubSub.publish("UPDATE_NorthSouthLights", intersection.NorthSouth.Light.Status);
-        // PubSub.publish("UPDATE_EastWestLights", intersection.EastWest.Light.Status);
     }
     
     setLight(light: Light, status: LightStatus, intersection: Intersection, topic: string){
@@ -94,6 +88,7 @@ export default class TrafficControlService {
         {
             this.setIsPeakHour(JSON.parse(isPeakHour));
         }
+        //had to do this trick because JSON.parse(...) does not accept string | null as parameter
         return JSON.parse(window.sessionStorage.getItem("isPeakHour") ?? isPeakHour);
     }
 }
