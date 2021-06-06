@@ -48,7 +48,10 @@ function App() {
             <td>SE</td>
           </tr>
         </table>
-        <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} value="Is peak hoour?" />
+        <div>
+          <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
+          <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
+        </div>
       </header>
     </div>
   );
