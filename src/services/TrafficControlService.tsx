@@ -88,9 +88,7 @@ export default class TrafficControlService {
 
     setIsPeakHour(isPeakHour: boolean) {
         window.sessionStorage.setItem("isPeakHour", JSON.stringify(isPeakHour));
-
-        console.log("setIsPeakHour 1 ==>" + isPeakHour);
-        console.log("setIsPeakHour 2 ==>" + this.getIsPeakHour());
+        console.log("setIsPeakHour ==>" + this.getIsPeakHour());
     }
 
     getIsPeakHour(): boolean {
