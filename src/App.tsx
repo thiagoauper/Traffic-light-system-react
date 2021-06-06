@@ -11,10 +11,10 @@ function App() {
 
   const mySubscriber = (msg: string, data: any) => {
     switch (msg) {
-        case 'UPDATE_NorthSouthLights':
+        case "UPDATE_NorthSouthLights":
           setNorthSouthLightStatus(data);
           break;
-        case 'UPDATE_EastWestLights':
+        case "UPDATE_EastWestLights":
           setEastWestLightStatus(data);
           break;
         default:
@@ -28,8 +28,8 @@ function App() {
 
     const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
     
-    PubSub.subscribe('UPDATE_NorthSouthLights', mySubscriber);
-    PubSub.subscribe('UPDATE_EastWestLights', mySubscriber);
+    PubSub.subscribe("UPDATE_NorthSouthLights", mySubscriber);
+    PubSub.subscribe("UPDATE_EastWestLights", mySubscriber);
     
     return () => clearInterval(interval);
   }, [isPeakHour]);
