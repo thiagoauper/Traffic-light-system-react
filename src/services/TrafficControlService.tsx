@@ -5,13 +5,9 @@ import Light from "../models/Light";
 
 
 export default class TrafficControlService {
-
+    // PRIVATE METHODS 
     private getIntersection(): Intersection {
-        var initialIntersection = new Intersection();
-        initialIntersection.NorthSouth.Light.Status = LightStatus.Green;
-        initialIntersection.EastWest.Light.Status = LightStatus.Red;
-
-        let intersection = JSON.stringify(initialIntersection);
+        let intersection = JSON.stringify(new Intersection());
         if(!window.sessionStorage.getItem("Intersection"))
         {
             this.setIntersection(JSON.parse(intersection));
@@ -24,7 +20,35 @@ export default class TrafficControlService {
     private setIntersection(intersection: Intersection) {
         window.sessionStorage.setItem("Intersection", JSON.stringify(intersection));
     }
+    
+    private setLight(light: Light, status: LightStatus, intersection: Intersection, topic: string){
+        light.Status = status;
+        this.setIntersection(intersection);
+        PubSub.publish(topic, status);
+    }
 
+    private getLightsInterval() : number {
+        const interval =
+            this.getIsPeakHour()
+            ? 
+                this.getIntersection().NorthSouth.Light.Status === LightStatus.Green.toString()
+                ? 40000 - this.getYellowThreshold()
+                : 10000 - this.getYellowThreshold()
+            : 20000 - this.getYellowThreshold();
+
+        return interval;
+    }
+
+    private getYellowThreshold() : number {
+        return 5000;
+    }
+
+    private getGreenThreshold() : number {
+        return 4000;
+    }
+
+
+    // PUBLIC METHODS 
     updateLights() {
         let intersection = this.getIntersection();
 
@@ -59,12 +83,6 @@ export default class TrafficControlService {
             
         this.setIntersection(intersection);
     }
-    
-    setLight(light: Light, status: LightStatus, intersection: Intersection, topic: string){
-        light.Status = status;
-        this.setIntersection(intersection);
-        PubSub.publish(topic, status);
-    }
 
     getNorthSouthLightStatus(): string {
         return this.getIntersection().NorthSouth.Light.Status.toString();
@@ -72,26 +90,6 @@ export default class TrafficControlService {
 
     getEastWestLightStatus(): string {
         return this.getIntersection().EastWest.Light.Status.toString();
-    }
-
-    getLightsInterval() : number {
-        const interval =
-            this.getIsPeakHour()
-            ? 
-                this.getIntersection().NorthSouth.Light.Status === LightStatus.Green.toString()
-                ? 40000 - this.getYellowThreshold()
-                : 10000 - this.getYellowThreshold()
-            : 20000 - this.getYellowThreshold();
-
-        return interval;
-    }
-
-    getYellowThreshold() : number {
-        return 5000;
-    }
-
-    getGreenThreshold() : number {
-        return 4000;
     }
 
     setIsPeakHour(isPeakHour: boolean) {
