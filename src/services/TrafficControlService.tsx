@@ -27,13 +27,15 @@ export default class TrafficControlService {
     }
 
     updateLights() {
+        // debugger;
+
+        let intersection = this.getIntersection();
+
         console.log("updateLights!");
         console.log("IsPeakHour? ==> " + this.getIsPeakHour());
         console.log("Lights interval ==> " + this.getLightsInterval());
-
-        debugger;
-
-        let intersection = this.getIntersection();
+        console.log("intersection.NorthSouth.Light.Status ==>" + intersection.NorthSouth.Light.Status);
+        console.log("intersection.EastWest.Light.Status ==>" + intersection.EastWest.Light.Status);
 
         if(intersection.NorthSouth.Light.Status === LightStatus.Green.toString())
         {
