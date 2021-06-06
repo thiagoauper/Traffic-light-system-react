@@ -25,15 +25,17 @@ function App() {
 
 
   useEffect(() => {
-    const lightsInterval = trafficControlService.getLightsInterval();
-    console.log(lightsInterval);
+    // const lightsInterval = trafficControlService.getLightsInterval();
+    // console.log(lightsInterval);
 
-    const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
+    // const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
+
+    // trafficControlService.updateLights();
     
     PubSub.subscribe('UPDATE_NorthSouthLights', mySubscriber);
     PubSub.subscribe('UPDATE_EastWestLights', mySubscriber);
     
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, [isPeakHour]);
 
   // function update() {
@@ -71,6 +73,7 @@ function App() {
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
         </div>
+        <button onClick={() => trafficControlService.updateLights()}>Change Status!</button>
       </header>
     </div>
   );
