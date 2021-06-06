@@ -42,8 +42,8 @@ export default class TrafficControlService {
                 setTimeout(() => {
                     this.setLight(intersection.EastWest.Light, LightStatus.Green, intersection,  "UPDATE_EastWestLights");
                     setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
-                }, 4000);
-            }, 5000);
+                }, this.getGreenThreshold());
+            }, this.getYellowThreshold());
         }
         else if (intersection.NorthSouth.Light.Status === LightStatus.Red.toString())
         {
@@ -53,8 +53,8 @@ export default class TrafficControlService {
                 setTimeout(() => {
                     this.setLight(intersection.NorthSouth.Light, LightStatus.Green, intersection,  "UPDATE_NorthSouthLights");
                     setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
-                }, 4000);
-            }, 5000);
+                }, this.getGreenThreshold());
+            }, this.getYellowThreshold());
         }
             
         this.setIntersection(intersection);
@@ -79,11 +79,19 @@ export default class TrafficControlService {
             this.getIsPeakHour()
             ? 
                 this.getIntersection().NorthSouth.Light.Status === LightStatus.Green.toString()
-                ? 40000
-                : 10000
-            : 20000;
+                ? 40000 - this.getYellowThreshold()
+                : 10000 - this.getYellowThreshold()
+            : 20000 - this.getYellowThreshold();
 
         return interval;
+    }
+
+    getYellowThreshold() : number {
+        return 5000;
+    }
+
+    getGreenThreshold() : number {
+        return 4000;
     }
 
     setIsPeakHour(isPeakHour: boolean) {
