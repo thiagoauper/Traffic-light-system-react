@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import TrafficControlService from './services/TrafficControlService';
+import PubSub from 'pubsub-js';
 
 function App() {
   let trafficControlService = new TrafficControlService();
@@ -8,20 +9,38 @@ function App() {
   const [eastWestLightStatus, setEastWestLightStatus] = useState(trafficControlService.getEastWestLightStatus());
   const [isPeakHour, setIsPeakHour] = React.useState(trafficControlService.getIsPeakHour());
 
+  const mySubscriber = (msg: string, data: any) => {
+
+    switch (msg) {
+        case 'UPDATE_NorthSouthLights':
+          setNorthSouthLightStatus(data);
+          break;
+        case 'UPDATE_EastWestLights':
+          setEastWestLightStatus(data);
+          break;
+        default:
+            break;
+    }
+};
+
 
   useEffect(() => {
     const lightsInterval = trafficControlService.getLightsInterval();
     console.log(lightsInterval);
 
-    const interval = setInterval(() => {update();}, lightsInterval);
+    const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
+    
+    PubSub.subscribe('UPDATE_NorthSouthLights', mySubscriber);
+    PubSub.subscribe('UPDATE_EastWestLights', mySubscriber);
+    
     return () => clearInterval(interval);
   }, [isPeakHour]);
 
-  function update() {
-    trafficControlService.updateLights();
-    setNorthSouthLightStatus(trafficControlService.getNorthSouthLightStatus());
-    setEastWestLightStatus(trafficControlService.getEastWestLightStatus());
-  }
+  // function update() {
+  //   trafficControlService.updateLights();
+  //   setNorthSouthLightStatus(trafficControlService.getNorthSouthLightStatus());
+  //   setEastWestLightStatus(trafficControlService.getEastWestLightStatus());
+  // }
 
   function togglePeakHour() {
     setIsPeakHour(!isPeakHour);

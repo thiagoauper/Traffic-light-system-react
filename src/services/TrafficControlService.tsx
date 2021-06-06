@@ -1,5 +1,8 @@
 import Intersection from "../models/Intersection";
 import { LightStatus } from "../models/LigthStatus";
+import PubSub from 'pubsub-js';
+import Light from "../models/Light";
+
 
 export default class TrafficControlService {
 
@@ -27,16 +30,24 @@ export default class TrafficControlService {
         let intersection = this.getIntersection();
 
         intersection.NorthSouth.Light.Status =
-        intersection.NorthSouth.Light.Status === LightStatus.Green.toString()
-            ? LightStatus.Red
-            : LightStatus.Green;
+            intersection.NorthSouth.Light.Status === LightStatus.Green.toString()
+                ? this.getRedLight(intersection.NorthSouth.Light, "UPDATE_NorthSouthLights")
+                : LightStatus.Green;
 
-        intersection.EastWest.Light.Status =
-        intersection.NorthSouth.Light.Status === LightStatus.Green.toString()
-            ? LightStatus.Red
-            : LightStatus.Green;
+        // intersection.EastWest.Light.Status =
+        //     intersection.NorthSouth.Light.Status === LightStatus.Green.toString()
+        //         ? LightStatus.Red
+        //         : LightStatus.Green;
             
         this.setIntersection(intersection);
+
+        PubSub.publish("UPDATE_NorthSouthLights", intersection.NorthSouth.Light.Status);
+        PubSub.publish("UPDATE_EastWestLights", intersection.EastWest.Light.Status);
+    }
+
+    getRedLight(light: Light, topic: string): LightStatus {
+        setTimeout(() => {PubSub.publish(topic, LightStatus.Red)}, 2000);
+        return LightStatus.Yellow;
     }
 
     getNorthSouthLightStatus(): string {
