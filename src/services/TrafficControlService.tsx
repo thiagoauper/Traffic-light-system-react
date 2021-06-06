@@ -44,4 +44,8 @@ export default class TrafficControlService {
     getEastWestLightStatus(): string {
         return this.getIntersection().EastWest.Light.Status.toString();
     }
+
+    getLightsInterval() : number {
+        return 2000;
+    }
 }

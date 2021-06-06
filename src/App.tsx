@@ -8,7 +8,7 @@ function App() {
   const [eastWestLightStatus, setEastWestLightStatus] = useState(trafficControlService.getEastWestLightStatus());
 
   useEffect(() => {
-    const interval = setInterval(() => {update();}, 5000);
+    const interval = setInterval(() => {update();}, trafficControlService.getLightsInterval());
     return () => clearInterval(interval);
   }, []);
 
