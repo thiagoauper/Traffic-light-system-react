@@ -21,6 +21,8 @@ export default class TrafficControlService {
 
     updateLights() {
         console.log("updateLights!");
+        console.log("IsPeakHour? ==> " + this.getIsPeakHour());
+        console.log("Lights interval ==> " + this.getLightsInterval());
 
         let intersection = this.getIntersection();
 
@@ -46,6 +48,21 @@ export default class TrafficControlService {
     }
 
     getLightsInterval() : number {
-        return 2000;
+        return this.getIsPeakHour()
+            ? 5000
+            : 2000;
+    }
+
+    setIsPeakHour(isPeakHour: boolean) {
+        window.sessionStorage.setItem("isPeakHour", JSON.stringify(isPeakHour));
+    }
+
+    getIsPeakHour(): boolean {
+        let isPeakHour = JSON.stringify(false);
+        if(!window.sessionStorage.getItem("isPeakHour"))
+        {
+            this.setIsPeakHour(JSON.parse(isPeakHour));
+        }
+        return JSON.parse(window.sessionStorage.getItem("isPeakHour") ?? isPeakHour);
     }
 }
