@@ -11,32 +11,39 @@ function App() {
 
   const mySubscriber = (msg: string, data: any) => {
     switch (msg) {
-        case "UPDATE_NorthSouthLights":
-          setNorthSouthLightStatus(data);
+      case "updateLights":
+        trafficControlService.updateLights();
+        console.log("Next check in " + data + " milliseconds.");
+        break;
+      case "UPDATE_NorthSouthLights":
+        setNorthSouthLightStatus(data);
+        break;
+      case "UPDATE_EastWestLights":
+        setEastWestLightStatus(data);
+        break;
+      default:
           break;
-        case "UPDATE_EastWestLights":
-          setEastWestLightStatus(data);
-          break;
-        default:
-            break;
     }
   };
 
   useEffect(() => {
-    const lightsInterval = trafficControlService.getLightsInterval();
-    console.log(lightsInterval);
+    // const lightsInterval = trafficControlService.getLightsInterval();
+    // console.log(lightsInterval);
 
-    const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
+    // const interval = setInterval(() => {trafficControlService.updateLights();}, lightsInterval);
     
+    PubSub.subscribe("updateLights", mySubscriber);
     PubSub.subscribe("UPDATE_NorthSouthLights", mySubscriber);
     PubSub.subscribe("UPDATE_EastWestLights", mySubscriber);
+
+    trafficControlService.updateLights();
     
-    return () => clearInterval(interval);
-  }, [isPeakHour]);
+    // return () => clearInterval(interval);
+  }, []);
 
   function togglePeakHour() {
     setIsPeakHour(!isPeakHour);
-    trafficControlService.setIsPeakHour(isPeakHour);
+    trafficControlService.setIsPeakHour(!isPeakHour);
   }
 
   return (
@@ -62,6 +69,9 @@ function App() {
         <div>
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
+          <p>
+            <pre>isPeakHour = &quot;{isPeakHour.toString()}&quot;</pre>
+          </p>
         </div>
       </header>
     </div>

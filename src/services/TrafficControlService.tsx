@@ -41,6 +41,7 @@ export default class TrafficControlService {
                 this.setLight(intersection.NorthSouth.Light, LightStatus.Red, intersection,  "UPDATE_NorthSouthLights");
                 setTimeout(() => {
                     this.setLight(intersection.EastWest.Light, LightStatus.Green, intersection,  "UPDATE_EastWestLights");
+                    setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
                 }, 4000);
             }, 5000);
         }
@@ -51,6 +52,7 @@ export default class TrafficControlService {
                 this.setLight(intersection.EastWest.Light, LightStatus.Red, intersection,  "UPDATE_EastWestLights");
                 setTimeout(() => {
                     this.setLight(intersection.NorthSouth.Light, LightStatus.Green, intersection,  "UPDATE_NorthSouthLights");
+                    setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
                 }, 4000);
             }, 5000);
         }
@@ -73,13 +75,22 @@ export default class TrafficControlService {
     }
 
     getLightsInterval() : number {
-        return this.getIsPeakHour()
-            ? 40000
+        const interval =
+            this.getIsPeakHour()
+            ? 
+                this.getIntersection().NorthSouth.Light.Status === LightStatus.Green.toString()
+                ? 40000
+                : 10000
             : 20000;
+
+        return interval;
     }
 
     setIsPeakHour(isPeakHour: boolean) {
         window.sessionStorage.setItem("isPeakHour", JSON.stringify(isPeakHour));
+
+        console.log("setIsPeakHour 1 ==>" + isPeakHour);
+        console.log("setIsPeakHour 2 ==>" + this.getIsPeakHour());
     }
 
     getIsPeakHour(): boolean {
