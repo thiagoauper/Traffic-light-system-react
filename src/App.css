@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: gray;
+  background-color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,5 +27,5 @@
 }
 
 .Yellow {
-  background-color: darkorange;
+  background-color: yellow;
 }
