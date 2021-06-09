@@ -34,7 +34,7 @@ function App() {
     trafficControlService.updateLights();
   }, []);
 
-  function togglePeakHour() {
+  const togglePeakHour = () => {
     setIsPeakHour(!isPeakHour);
     trafficControlService.setIsPeakHour(!isPeakHour);
   }
