@@ -13,11 +13,6 @@
   color: white;
 }
 
-.Intersection-table {
-  text-align: center;
-  width: 500px;
-}
-
 .Green {
   background-color: green;
 }
@@ -28,4 +23,21 @@
 
 .Yellow {
   background-color: yellow;
+}
+
+.Table {
+  width: 500px;
+  border-style: solid;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.Column {
+  /* display: flex; */
+  /* align-content: center; */
+  border-style: solid;
 }

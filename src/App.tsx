@@ -44,23 +44,22 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <table className="Intersection-table">
-          <tr>
-            <td>NW</td>
-            <td><TrafficLightComponent color={northSouthLightStatus} /></td>
-            <td>NE</td>
-          </tr>
-          <tr>
-            <td><TrafficLightComponent color={eastWestLightStatus} /></td>
-            <td></td>
-            <td><TrafficLightComponent color={eastWestLightStatus} /></td>
-          </tr>
-          <tr>
-            <td>SW</td>
-            <td><TrafficLightComponent color={northSouthLightStatus} /></td>
-            <td>SE</td>
-          </tr>
-        </table>
+        <div className="Table">
+          <div className="Row">
+            <div className="Column">NW</div>
+            <div className="Column"><TrafficLightComponent color={northSouthLightStatus} /></div>
+            <div className="Column">NE</div>
+          </div>
+          <div className="Row">
+            <div className="Column"><TrafficLightComponent color={eastWestLightStatus} /></div>
+            <div className="Column"><TrafficLightComponent color={eastWestLightStatus} /></div>
+          </div>
+          <div className="Row">
+            <div className="Column">SW</div>
+            <div className="Column"><TrafficLightComponent color={northSouthLightStatus} /></div>
+            <div className="Column">SE</div>
+          </div>
+        </div>
         <div>
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
