@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import TrafficControlService from './services/TrafficControlService';
 import PubSub from 'pubsub-js';
+import LightComponent from './components/LightComponent';
 
 function App() {
   let trafficControlService = new TrafficControlService();
@@ -62,6 +63,9 @@ function App() {
         <div>
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
+        </div>
+        <div>
+          <LightComponent color="Green" />
         </div>
       </header>
     </div>
