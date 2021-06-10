@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import TrafficControlService from './services/TrafficControlService';
 import PubSub from 'pubsub-js';
-import LightComponent from './components/LightComponent';
 import TrafficLightComponent from './components/TrafficLightComponent';
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
     switch (msg) {
       case "updateLights":
         trafficControlService.updateLights();
-        console.log("Next check in " + data + " milliseconds.");
         break;
       case "UPDATE_NorthSouthLights":
         setNorthSouthLightStatus(data);

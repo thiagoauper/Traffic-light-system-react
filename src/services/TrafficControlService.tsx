@@ -47,16 +47,15 @@ export default class TrafficControlService {
         return 4000;
     }
 
+    private logNextCheck() {
+        console.log("Next change in " + this.getLightsInterval() + " milliseconds.");
+    }
+
 
     // PUBLIC METHODS 
     updateLights() {
         let intersection = this.getIntersection();
-
         console.log("updateLights!");
-        console.log("IsPeakHour? ==> " + this.getIsPeakHour());
-        console.log("Lights interval ==> " + this.getLightsInterval());
-        console.log("intersection.NorthSouth.Light.Status ==>" + intersection.NorthSouth.Light.Status);
-        console.log("intersection.EastWest.Light.Status ==>" + intersection.EastWest.Light.Status);
 
         if(intersection.NorthSouth.Light.Status === LightStatus.Green.toString())
         {
@@ -65,6 +64,7 @@ export default class TrafficControlService {
                 this.setLight(intersection.NorthSouth.Light, LightStatus.Red, intersection,  "UPDATE_NorthSouthLights");
                 setTimeout(() => {
                     this.setLight(intersection.EastWest.Light, LightStatus.Green, intersection,  "UPDATE_EastWestLights");
+                    this.logNextCheck();
                     setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
                 }, this.getGreenThreshold());
             }, this.getYellowThreshold());
@@ -76,6 +76,7 @@ export default class TrafficControlService {
                 this.setLight(intersection.EastWest.Light, LightStatus.Red, intersection,  "UPDATE_EastWestLights");
                 setTimeout(() => {
                     this.setLight(intersection.NorthSouth.Light, LightStatus.Green, intersection,  "UPDATE_NorthSouthLights");
+                    this.logNextCheck();
                     setTimeout(() => PubSub.publish("updateLights", this.getLightsInterval()), this.getLightsInterval());
                 }, this.getGreenThreshold());
             }, this.getYellowThreshold());
