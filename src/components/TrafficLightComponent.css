@@ -2,4 +2,6 @@
     width: 100px;
     border: white;
     border-style: solid;
+    display: flex;
+    justify-content: center;
 }
