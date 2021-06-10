@@ -2,7 +2,7 @@ import "./LightComponent.css";
 
 function LightComponent(props: any) {
   return (
-    <div className={props.color}>Light Component!</div>
+    <div className={props.color}>{props.label}</div>
   );
 }
 

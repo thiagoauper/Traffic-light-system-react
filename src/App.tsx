@@ -46,26 +46,23 @@ function App() {
         <table className="Intersection-table">
           <tr>
             <td>NW</td>
-            <td className={northSouthLightStatus}>N</td>
+            <td><LightComponent color={northSouthLightStatus} label="N" /></td>
             <td>NE</td>
           </tr>
           <tr>
-            <td className={eastWestLightStatus}>W</td>
+            <td><LightComponent color={eastWestLightStatus} label="W" /></td>
             <td></td>
-            <td className={eastWestLightStatus}>E</td>
+            <td><LightComponent color={eastWestLightStatus} label="E" /></td>
           </tr>
           <tr>
             <td>SW</td>
-            <td className={northSouthLightStatus}>S</td>
+            <td><LightComponent color={northSouthLightStatus} label="S" /></td>
             <td>SE</td>
           </tr>
         </table>
         <div>
           <input type="checkbox" defaultChecked={isPeakHour} onChange={() => togglePeakHour()} name="isPeakHourCheckBox" />
           <label htmlFor="isPeakHourCheckBox">Is peak hour?</label>
-        </div>
-        <div>
-          <LightComponent color="Green" />
         </div>
       </header>
     </div>
