@@ -1,15 +1,29 @@
+/* TODO: Learn how to use SASS to deduplicate css styles! */
+
 .Green {
     background-color: green;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 .Red {
     background-color: red;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 .Yellow {
     background-color: yellow;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 .Gray {
     background-color: gray;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
