@@ -37,7 +37,8 @@
 }
 
 .Column {
-  /* display: flex; */
-  /* align-content: center; */
-  border-style: solid;
+  width: 100px;
+  display: flex;
+  justify-content: center; /*horizontal alignment*/
+  align-items: center; /*vertical alignment*/
 }
