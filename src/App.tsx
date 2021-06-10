@@ -3,6 +3,7 @@ import './App.css';
 import TrafficControlService from './services/TrafficControlService';
 import PubSub from 'pubsub-js';
 import LightComponent from './components/LightComponent';
+import TrafficLightComponent from './components/TrafficLightComponent';
 
 function App() {
   let trafficControlService = new TrafficControlService();
@@ -46,17 +47,17 @@ function App() {
         <table className="Intersection-table">
           <tr>
             <td>NW</td>
-            <td><LightComponent color={northSouthLightStatus} label="N" /></td>
+            <td><TrafficLightComponent color={northSouthLightStatus} /></td>
             <td>NE</td>
           </tr>
           <tr>
-            <td><LightComponent color={eastWestLightStatus} label="W" /></td>
+            <td><TrafficLightComponent color={eastWestLightStatus} /></td>
             <td></td>
-            <td><LightComponent color={eastWestLightStatus} label="E" /></td>
+            <td><TrafficLightComponent color={eastWestLightStatus} /></td>
           </tr>
           <tr>
             <td>SW</td>
-            <td><LightComponent color={northSouthLightStatus} label="S" /></td>
+            <td><TrafficLightComponent color={northSouthLightStatus} /></td>
             <td>SE</td>
           </tr>
         </table>
