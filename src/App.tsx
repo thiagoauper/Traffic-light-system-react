@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import TrafficControlService from './services/TrafficControlService';
 import PubSub from 'pubsub-js';
 import TrafficLightComponent from './components/TrafficLightComponent';

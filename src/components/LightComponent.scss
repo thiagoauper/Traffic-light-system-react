@@ -1,0 +1,40 @@
+/* TODO: Learn how to use SASS to deduplicate css styles! */
+$light-diameter: 50px;
+$light-margin: 10px;
+$light-border-radius: 50%;
+
+.Green {
+    background-color: lightgreen;
+    border-radius: $light-border-radius;
+    width: $light-diameter;
+    height: $light-diameter;
+    margin: $light-margin;
+}
+
+.Red {
+    background-color: red;
+    border-radius: $light-border-radius;
+    width: $light-diameter;
+    height: $light-diameter;
+    margin: $light-margin;
+}
+
+.Yellow {
+    background-color: yellow;
+    border-radius: $light-border-radius;
+    width: $light-diameter;
+    height: $light-diameter;
+    margin: $light-margin;
+}
+
+.Gray {
+    background-color: gray;
+    border-radius: $light-border-radius;
+    width: $light-diameter;
+    height: $light-diameter;
+    margin: $light-margin;
+}
+
+.Disabled {
+    filter: opacity(.25);
+}

@@ -1,4 +1,4 @@
-import "./TrafficLightComponent.css";
+import "./TrafficLightComponent.scss";
 import LightComponent from "./LightComponent";
 
 interface ITrafficLightComponent {

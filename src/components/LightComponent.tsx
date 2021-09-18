@@ -1,4 +1,4 @@
-import "./LightComponent.css";
+import "./LightComponent.scss";
 
 interface ILightComponentProps {
   enabled: boolean,
