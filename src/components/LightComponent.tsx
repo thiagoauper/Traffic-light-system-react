@@ -1,8 +1,13 @@
 import "./LightComponent.css";
 
-function LightComponent(props: any) {
+interface ILightComponentProps {
+  enabled: boolean,
+  color: string
+}
+
+const LightComponent: React.FC<ILightComponentProps> = ({enabled, color} : ILightComponentProps) => {
   return (
-    <div className={props.enabled ? props.color : props.color + " Disabled"}></div>
+    <div className={enabled ? color : color + " Disabled"}></div>
   );
 }
 
