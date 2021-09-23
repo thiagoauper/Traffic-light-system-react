@@ -6,25 +6,31 @@ import "./ParkingAssignmentListComponent.scss";
 
 const ParkingAssignmentListComponent: React.FC = () => {
 
-  const [authenticationToken, setAuthenticationToken] = useState<string | undefined>();
+  const [authenticationToken, setAuthenticationToken] = useState<string>("Authentication token has not been retrieved yet.");
   const [parkingAssignments, setParkingAssignments] = useState<ParkingAssignment[]>([]);
 
   useEffect(() => {
     let parkingService: ParkingService = new ParkingService();
 
-    let authToken = parkingService.Authenticate("allow user to enter user name", "allow user to enter password");
-    setAuthenticationToken(authToken);
+    parkingService
+      .Authenticate("allow user to enter user name", "allow user to enter password") //TODO: allow user to enter username and password
+      .then(authToken => {
+        setAuthenticationToken(authToken);
 
-    let assignments = parkingService.GetAssignments();
-    setParkingAssignments(assignments);
+        parkingService.GetAssignments(authToken)
+          .then(assignments => setParkingAssignments(assignments))
+          .catch(error => console.log("Error obtaining parking assignments => " + error));
+
+      })
+      .catch(error => setAuthenticationToken("Error obtaining authentication token => " + error));
   }, []);
 
   return (
     <>
       <div>The Parking Assignments will be here!</div>
-      <div>{authenticationToken ?? "Authentication token has not been retrieved yet."} </div>
+      <div>{authenticationToken}</div>
       <div>
-        {parkingAssignments.map(assignment => <ParkingAssignmentComponent assignment={assignment} /> )}
+        {parkingAssignments.map((assignment, index) => <ParkingAssignmentComponent assignment={assignment} key={index} /> )}
       </div>
     </>
   );

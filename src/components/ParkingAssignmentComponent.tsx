@@ -8,10 +8,10 @@ interface IParkingAssignmentComponent {
 const ParkingAssignmentComponent: React.FC<IParkingAssignmentComponent> = ({assignment} : IParkingAssignmentComponent) => {
   return (
     <div className="container">
-        <div>{assignment.LicencePlate}</div>
-        <div>{assignment.Employee}</div>
-        <div>{assignment.FuelAdded}</div>
-        <div>{assignment.Price}</div>
+        <div>{assignment.licencePlate}</div>
+        <div>{assignment.employee}</div>
+        <div>{assignment.fuelAdded}</div>
+        <div>{assignment.price}</div>
     </div>
   );
 }
