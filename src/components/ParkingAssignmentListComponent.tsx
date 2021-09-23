@@ -9,20 +9,20 @@ const ParkingAssignmentListComponent: React.FC = () => {
   const [authenticationToken, setAuthenticationToken] = useState<string>("Authentication token has not been retrieved yet.");
   const [parkingAssignments, setParkingAssignments] = useState<ParkingAssignment[]>([]);
 
-  useEffect(() => {
+  async function fetchDataFromAPI() {
     let parkingService: ParkingService = new ParkingService();
+    try {
+      let authToken = await parkingService.Authenticate("allow user to enter user name", "allow user to enter password"); //TODO: allow user to enter username and password
+      setAuthenticationToken(authToken);
+      let assignments = await parkingService.GetAssignments(authToken);
+      setParkingAssignments(assignments);
+    } catch(exception) {
+      console.error("Error when fetching data from API => " + exception);
+    }
+  }
 
-    parkingService
-      .Authenticate("allow user to enter user name", "allow user to enter password") //TODO: allow user to enter username and password
-      .then(authToken => {
-        setAuthenticationToken(authToken);
-
-        parkingService.GetAssignments(authToken)
-          .then(assignments => setParkingAssignments(assignments))
-          .catch(error => console.log("Error obtaining parking assignments => " + error));
-
-      })
-      .catch(error => setAuthenticationToken("Error obtaining authentication token => " + error));
+  useEffect(() => {
+    fetchDataFromAPI();
   }, []);
 
   return (
