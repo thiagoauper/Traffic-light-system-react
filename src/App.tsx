@@ -3,6 +3,7 @@ import './App.scss';
 import TrafficControlService from './services/TrafficControlService';
 import PubSub from 'pubsub-js';
 import TrafficLightComponent from './components/TrafficLightComponent';
+import ParkingAssignmentsComponent from './components/ParkingAssignmentsComponent';
 
 function App() {
   let trafficControlService = new TrafficControlService();
@@ -42,6 +43,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <ParkingAssignmentsComponent />
+
         <div className="Table">
           <div className="Row">
             <div className="Column">NW</div>
