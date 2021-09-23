@@ -7,7 +7,7 @@ interface IParkingAssignmentComponent {
 
 const ParkingAssignmentComponent: React.FC<IParkingAssignmentComponent> = ({assignment} : IParkingAssignmentComponent) => {
   return (
-    <div className="container">
+    <div className="parkingAssignment">
         <div>{assignment.licencePlate}</div>
         <div>{assignment.employee}</div>
         <div>{assignment.fuelAdded}</div>

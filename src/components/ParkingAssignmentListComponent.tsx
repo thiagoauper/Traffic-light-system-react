@@ -26,13 +26,11 @@ const ParkingAssignmentListComponent: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className="parkingAssignmentContainer">
       <div>The Parking Assignments will be here!</div>
       <div>{authenticationToken}</div>
-      <div>
-        {parkingAssignments.map((assignment, index) => <ParkingAssignmentComponent assignment={assignment} key={index} /> )}
-      </div>
-    </>
+      {parkingAssignments.map((assignment, index) => <ParkingAssignmentComponent assignment={assignment} key={index} /> )}
+    </div>
   );
 }
 
