@@ -11,7 +11,7 @@ describe('Asserting that the TrafficLightComponent has the expected structure an
         expect(lights.length).toEqual(3);
     });
 
-    test('Checking when the Red Light is ON', () => {
+    test('Checking when the Red Light is ON, the others are OFF', () => {
         render(<TrafficLightComponent color="Red" />);
 
         let lights = screen.getAllByRole('Light');
@@ -28,7 +28,7 @@ describe('Asserting that the TrafficLightComponent has the expected structure an
 
     });
 
-    test('Checking when the Green Light is ON', () => {
+    test('Checking when the Green Light is ON, the others are OFF', () => {
         render(<TrafficLightComponent color="Green" />);
 
         let lights = screen.getAllByRole('Light');
@@ -45,7 +45,7 @@ describe('Asserting that the TrafficLightComponent has the expected structure an
 
     });
 
-    test('Checking when the Yellow Light is ON', () => {
+    test('Checking when the Yellow Light is ON, the others are OFF', () => {
         render(<TrafficLightComponent color="Yellow" />);
 
         let lights = screen.getAllByRole('Light');
