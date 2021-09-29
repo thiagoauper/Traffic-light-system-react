@@ -7,7 +7,7 @@ interface ILightComponentProps {
 
 const LightComponent: React.FC<ILightComponentProps> = ({enabled, color} : ILightComponentProps) => {
   return (
-    <div className={enabled ? color : color + " Disabled"}></div>
+    <div role="Light" className={enabled ? color : color + " Disabled"}></div>
   );
 }
 

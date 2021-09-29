@@ -7,7 +7,7 @@ interface ITrafficLightComponent {
 
 const TrafficLightComponent : React.FC<ITrafficLightComponent> = ({color}: ITrafficLightComponent) => {
   return (
-    <div className="TrafficLight">
+    <div role="TrafficLight" className="TrafficLight">
       <div>
         <LightComponent color="Red" enabled={color === "Red"} />
         <LightComponent color="Yellow" enabled={color === "Yellow"} />
